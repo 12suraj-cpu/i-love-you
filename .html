@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>I Love You Animation</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+      color: white;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .input-box {
+      text-align: center;
+      z-index: 2;
+    }
+
+    input {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      outline: none;
+      margin-top: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+      background: #ff4da6;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .container {
+      text-align: center;
+      display: none;
+      animation: glow 2s ease-in-out infinite alternate;
+      z-index: 2;
+    }
+
+    .heart {
+      font-size: 100px;
+      animation: beat 1s infinite;
+      color: red;
+    }
+
+    h1 {
+      margin-top: 20px;
+      font-size: 2.5em;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #ff0080, 0 0 20px #ff0080, 0 0 30px #ff0080;
+      }
+      to {
+        text-shadow: 0 0 20px #ff4da6, 0 0 30px #ff4da6, 0 0 40px #ff4da6;
+      }
+    }
+
+    @keyframes beat {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.3);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* Floating Hearts Background */
+    .floating-heart {
+      position: absolute;
+      color: red;
+      animation: floatUp 5s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% {
+        bottom: 0;
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
+      100% {
+        bottom: 100%;
+        opacity: 0;
+        transform: translateX(-50px) scale(1.5);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Name Input -->
+  <div class="input-box">
+    <h2>Enter your love's name ❤️</h2>
+    <input type="text" id="nameInput" placeholder="Type name here..." />
+    <br />
+    <button onclick="showLove()">Show Love</button>
+  </div>
+
+  <!-- Love Message -->
+  <div class="container" id="loveMessage">
+    <div class="heart">❤️</div>
+    <h1 id="loveText">I Love You</h1>
+  </div>
+
+  <!-- Floating Hearts -->
+  <script>
+    function showLove() {
+      const name = document.getElementById("nameInput").value.trim();
+      if (name) {
+        document.getElementById("loveText").textContent = `I Love You, ${name}`;
+        document.querySelector(".input-box").style.display = "none";
+        document.getElementById("loveMessage").style.display = "block";
+        startFloatingHearts();
+      } else {
+        alert("Please enter a name 💖");
+      }
+    }
+
+    function startFloatingHearts() {
+      for (let i = 0; i < 30; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("floating-heart");
+        heart.textContent = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 20 + 10 + "px";
+        heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 6000);
+      }
+
+      // Repeat every few seconds
+      setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("floating-heart");
+        heart.textContent = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 20 + 10 + "px";
+        heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 6000);
+      }, 500);
+    }
+  </script>
+
+</body>
+</html>
